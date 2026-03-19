@@ -15,6 +15,7 @@ from ib_showcase.analytics import (
 from ib_showcase.charts import (
     plot_correlation_heatmap,
     plot_filing_reaction_bars,
+    plot_dcf_scenario_cases,
     plot_dcf_sensitivity_heatmap,
     plot_dcf_upside_bars,
     plot_macro_factor_heatmap,
@@ -77,7 +78,7 @@ def run_analysis_pipeline(config: ProjectConfig, write_outputs: bool = True) -> 
     )
     filing_event_summary = build_filing_event_summary(filing_reactions)
     focus_ticker = screening_table.index[0] if not screening_table.empty else (config.tickers[0] if config.tickers else None)
-    dcf_summary, dcf_projection, dcf_sensitivity = build_dcf_outputs(
+    dcf_summary, dcf_projection, dcf_sensitivity, dcf_scenarios, focus_scenarios = build_dcf_outputs(
         company_snapshots=company_snapshots,
         revenue_history=revenue_history,
         macro_snapshot=macro_snapshot,
@@ -105,6 +106,8 @@ def run_analysis_pipeline(config: ProjectConfig, write_outputs: bool = True) -> 
         "dcf_summary": dcf_summary,
         "dcf_projection": dcf_projection,
         "dcf_sensitivity": dcf_sensitivity,
+        "dcf_scenarios": dcf_scenarios,
+        "focus_scenarios": focus_scenarios,
         "focus_ticker": focus_ticker,
         "chart_paths": {},
     }
@@ -172,6 +175,11 @@ def run_analysis_pipeline(config: ProjectConfig, write_outputs: bool = True) -> 
             focus_ticker=focus_ticker,
             output_path=output_dirs["charts"] / "dcf_sensitivity.png",
         ),
+        "dcf_scenarios": plot_dcf_scenario_cases(
+            focus_scenarios=focus_scenarios,
+            focus_ticker=focus_ticker,
+            output_path=output_dirs["charts"] / "dcf_scenario_cases.png",
+        ),
     }
 
     save_tables(
@@ -195,6 +203,8 @@ def run_analysis_pipeline(config: ProjectConfig, write_outputs: bool = True) -> 
             "dcf_summary": dcf_summary,
             "dcf_projection": dcf_projection,
             "dcf_sensitivity": dcf_sensitivity,
+            "dcf_scenarios": dcf_scenarios,
+            "focus_scenarios": focus_scenarios,
         },
         table_dir=output_dirs["tables"],
     )
@@ -217,6 +227,8 @@ def run_analysis_pipeline(config: ProjectConfig, write_outputs: bool = True) -> 
             "DCF Summary": dcf_summary,
             "DCF Projection": dcf_projection,
             "DCF Sensitivity": dcf_sensitivity,
+            "DCF Scenarios": dcf_scenarios,
+            "Focus Scenarios": focus_scenarios,
         },
     )
 
@@ -230,6 +242,7 @@ def run_analysis_pipeline(config: ProjectConfig, write_outputs: bool = True) -> 
         filing_reactions=filing_reactions,
         sec_snapshot=sec_snapshot,
         dcf_summary=dcf_summary,
+        focus_scenarios=focus_scenarios,
         chart_paths=chart_paths,
         output_path=output_dirs["base"] / "executive_summary.md",
     )
@@ -241,6 +254,7 @@ def run_analysis_pipeline(config: ProjectConfig, write_outputs: bool = True) -> 
         sec_snapshot=sec_snapshot,
         filing_event_summary=filing_event_summary,
         dcf_summary=dcf_summary,
+        focus_scenarios=focus_scenarios,
         chart_paths=chart_paths,
         output_path=output_dirs["base"] / "dashboard_report.html",
     )
@@ -251,6 +265,7 @@ def run_analysis_pipeline(config: ProjectConfig, write_outputs: bool = True) -> 
         sec_snapshot=sec_snapshot,
         filing_reactions=filing_reactions,
         dcf_summary=dcf_summary,
+        focus_scenarios=focus_scenarios,
         macro_snapshot=transformed_macro_snapshot,
         output_path=output_dirs["base"] / "recruiter_case_study.md",
     )

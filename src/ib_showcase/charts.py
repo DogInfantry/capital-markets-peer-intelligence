@@ -230,6 +230,29 @@ def plot_dcf_sensitivity_heatmap(
     return _finalize_chart(output_path)
 
 
+def plot_dcf_scenario_cases(
+    focus_scenarios: pd.DataFrame,
+    focus_ticker: str | None,
+    output_path: Path,
+) -> Path:
+    _apply_theme()
+    if focus_scenarios.empty:
+        plt.figure()
+        plt.text(0.5, 0.5, "DCF scenario cases unavailable", ha="center", va="center")
+        plt.axis("off")
+        return _finalize_chart(output_path)
+
+    order = ["Bear", "Base", "Bull"]
+    chart_df = focus_scenarios.copy()
+    chart_df["case"] = pd.Categorical(chart_df["case"], categories=order, ordered=True)
+    chart_df = chart_df.sort_values("case")
+    ax = sns.barplot(data=chart_df, x="case", y="implied_share_price", hue="case", legend=False, palette="Set2")
+    ax.set_title(f"Sector Scenario DCF Cases{f': {focus_ticker}' if focus_ticker else ''}")
+    ax.set_xlabel("")
+    ax.set_ylabel("Implied Share Price")
+    return _finalize_chart(output_path)
+
+
 def plot_macro_factor_heatmap(
     macro_factor_correlation: pd.DataFrame,
     output_path: Path,

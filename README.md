@@ -9,6 +9,7 @@ This project is a recruiter-friendly Python showcase for an MBA candidate target
 - Macro overlay using Federal Reserve Economic Data (FRED)
 - Automated chart generation for bar charts, trend lines, heatmaps, and risk/return visuals
 - Intrinsic valuation with a DCF model and sensitivity analysis
+- Sector-based Bear / Base / Bull DCF cases that stay explainable in interviews
 - Interactive Streamlit dashboard for self-serve walkthroughs
 - Executive-summary output that can be dropped into a case study, interview packet, or GitHub portfolio
 - Clean, modular, Git-ready Python structure
@@ -80,6 +81,8 @@ With manual DCF overrides:
 python run_analysis.py --tickers GS MS JEF LAZ PJT --benchmark ^GSPC --sector-label "Advisory and Capital Markets Peer Set" --assumptions-file templates/dcf_assumptions_template.csv
 ```
 
+The model also generates sector-based `Bear`, `Base`, and `Bull` DCF cases automatically using simple assumption shifts around growth, margin, and WACC.
+
 ## Setup
 
 ```bash
@@ -144,7 +147,6 @@ After one run, you can open and present:
 ## Suggested next upgrades
 
 - Add transaction comps from manually curated deal files
-- Add scenario-based DCF cases by sector
 - Publish the Streamlit app to the cloud
 - Schedule automatic weekly refreshes
 - Add regression-based factor attribution

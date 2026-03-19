@@ -69,6 +69,8 @@ if run_button:
     dcf_summary = results["dcf_summary"]
     dcf_projection = results["dcf_projection"]
     dcf_sensitivity = results["dcf_sensitivity"]
+    dcf_scenarios = results["dcf_scenarios"]
+    focus_scenarios = results["focus_scenarios"]
     sec_snapshot = results["sec_snapshot"]
     sec_filings = results["sec_filings"]
     sec_quarterly_fundamentals = results["sec_quarterly_fundamentals"]
@@ -141,6 +143,20 @@ if run_button:
                 use_container_width=True,
             )
 
+    st.subheader("Sector Scenario Cases")
+    if not focus_scenarios.empty:
+        scenario_chart_df = focus_scenarios.copy()
+        st.plotly_chart(
+            px.bar(
+                scenario_chart_df,
+                x="case",
+                y="implied_share_price",
+                color="case",
+                title=f"Bear / Base / Bull Scenarios: {focus_ticker}",
+            ),
+            use_container_width=True,
+        )
+
     st.subheader("Normalized Returns")
     if not results["prices"].empty:
         normalized = results["prices"].div(results["prices"].ffill().bfill().iloc[0]).mul(100)
@@ -184,8 +200,8 @@ if run_button:
     st.dataframe(macro_factor_correlation, use_container_width=True)
 
     st.subheader("Tables")
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
-        ["Screening", "Performance", "DCF", "Projection", "SEC Filings", "Filing Reactions", "SEC Quarterlies"]
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
+        ["Screening", "Performance", "DCF", "Projection", "Scenarios", "SEC Filings", "Filing Reactions", "SEC Quarterlies"]
     )
     with tab1:
         st.dataframe(screening_table, use_container_width=True)
@@ -200,12 +216,15 @@ if run_button:
         st.dataframe(dcf_projection, use_container_width=True)
         _download_button("Download projection CSV", dcf_projection, "dcf_projection.csv")
     with tab5:
+        st.dataframe(dcf_scenarios, use_container_width=True)
+        _download_button("Download DCF scenarios CSV", dcf_scenarios, "dcf_scenarios.csv")
+    with tab6:
         st.dataframe(sec_filings, use_container_width=True)
         _download_button("Download SEC filings CSV", sec_filings, "sec_filings.csv")
-    with tab6:
+    with tab7:
         st.dataframe(filing_reactions, use_container_width=True)
         _download_button("Download filing reactions CSV", filing_reactions, "filing_reactions.csv")
-    with tab7:
+    with tab8:
         st.dataframe(sec_quarterly_fundamentals, use_container_width=True)
         _download_button("Download SEC quarterlies CSV", sec_quarterly_fundamentals, "sec_quarterlies.csv")
 

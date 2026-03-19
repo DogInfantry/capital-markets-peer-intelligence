@@ -18,6 +18,7 @@ def test_build_dcf_outputs_creates_summary_and_projection() -> None:
         {
             "ticker": ["AAA"],
             "company_name": ["Alpha Co"],
+            "sector": ["Technology"],
             "latest_revenue": [1000.0],
             "latest_free_cash_flow": [120.0],
             "latest_total_debt": [100.0],
@@ -48,7 +49,7 @@ def test_build_dcf_outputs_creates_summary_and_projection() -> None:
         }
     ).set_index("series")
 
-    dcf_summary, dcf_projection, dcf_sensitivity = build_dcf_outputs(
+    dcf_summary, dcf_projection, dcf_sensitivity, dcf_scenarios, focus_scenarios = build_dcf_outputs(
         company_snapshots=company_snapshots,
         revenue_history=revenue_history,
         macro_snapshot=macro_snapshot,
@@ -58,5 +59,8 @@ def test_build_dcf_outputs_creates_summary_and_projection() -> None:
     assert not dcf_summary.empty
     assert not dcf_projection.empty
     assert not dcf_sensitivity.empty
+    assert not dcf_scenarios.empty
+    assert not focus_scenarios.empty
     assert "implied_share_price" in dcf_summary.columns
     assert dcf_projection["ticker"].iloc[0] == "AAA"
+    assert set(focus_scenarios["case"]) == {"Bear", "Base", "Bull"}
