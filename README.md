@@ -1,17 +1,43 @@
-# Investment Banking Recruiting Portfolio
+# Capital Markets Peer Intelligence
 
-This project is a recruiter-friendly Python showcase for an MBA candidate targeting investment banking, capital markets, corporate finance, or strategy roles. It combines free market data, free macro data, valuation-style benchmarking, and clean visual storytelling in a way that looks like real analytical work instead of a classroom exercise.
+This repository is a recruiter-facing finance analytics project designed for an MBA candidate targeting investment banking, capital markets, corporate finance, and strategic finance roles. It combines market data, SEC filings, macro context, peer benchmarking, and valuation outputs into a workflow that looks and feels like a real coverage or issuer-intelligence work product.
 
-## What this project demonstrates
+## What This Project Does
+
+- Tracks a selected peer group using free market, macro, and SEC data
+- Highlights what changed in recent filings and how markets reacted
+- Compares companies on performance, quality, value, and defensiveness
+- Produces an explainable valuation layer with sensitivity and scenario views
+- Generates visual and written outputs that are easy for recruiters and hiring managers to review
+
+## Why It Works As A Recruiting Project
+
+- It is business-first, not code-first
+- It shows structured thinking, not just chart-making
+- It uses official SEC and FRED data sources alongside market data
+- It creates visible deliverables instead of staying inside notebooks or scripts
+- It is detailed enough to stand out, but simple enough to explain clearly in interviews
+
+## Deliverables At A Glance
+
+After one run, the project produces:
+
+- a chart pack in `outputs/charts/`
+- an Excel workbook in `outputs/ib_recruiting_dashboard.xlsx`
+- a browser-ready report in `outputs/dashboard_report.html`
+- an executive summary in `outputs/executive_summary.md`
+- a recruiter-style case study in `outputs/recruiter_case_study.md`
+- a curated GitHub-friendly showcase in `sample_outputs/`
+
+## What This Demonstrates
 
 - Market data ingestion with free APIs
+- SEC filing and company-facts analysis
 - Peer benchmarking and comps-style analysis
 - Macro overlay using Federal Reserve Economic Data (FRED)
-- Automated chart generation for bar charts, trend lines, heatmaps, and risk/return visuals
-- Intrinsic valuation with a DCF model and sensitivity analysis
-- Sector-based Bear / Base / Bull DCF cases that stay explainable in interviews
+- Automated chart generation for bar charts, trend lines, heatmaps, and event visuals
+- Intrinsic valuation with DCF sensitivity and simple sector-based scenarios
 - Interactive Streamlit dashboard for self-serve walkthroughs
-- Executive-summary output that can be dropped into a case study, interview packet, or GitHub portfolio
 - Clean, modular, Git-ready Python structure
 
 ## Free data sources used
