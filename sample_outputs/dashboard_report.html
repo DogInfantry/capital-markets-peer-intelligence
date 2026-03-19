@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advisory and Capital Markets Peer Set Dashboard Report</title>
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      margin: 0;
+      background: linear-gradient(180deg, #f4f0e8 0%, #ffffff 30%);
+      color: #172033;
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 40px 28px 60px;
+    }
+    .hero {
+      background: #172033;
+      color: #f7f5ef;
+      padding: 28px;
+      border-radius: 18px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+    }
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      line-height: 1.5;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(23, 32, 51, 0.08);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+      margin: 24px 0;
+    }
+    .chart-grid img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid #e6e0d5;
+      background: white;
+    }
+    .data-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14px;
+    }
+    .data-table th, .data-table td {
+      border-bottom: 1px solid #ece8df;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    .section-title {
+      margin: 30px 0 14px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Advisory and Capital Markets Peer Set</h1>
+      <p>Automated Python report combining free market data, free macro data, peer benchmarking, DCF valuation, and visual storytelling. Built to be reviewable by recruiters, managers, and interviewers without paid data subscriptions.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Focus Ticker</h2>
+        <p>GS</p>
+      </div>
+      <div class="card">
+        <h2>Top Ranked Peer</h2>
+        <p>GS</p>
+      </div>
+      <div class="card">
+        <h2>Best DCF Name</h2>
+        <p>JEF</p>
+      </div>
+      <div class="card">
+        <h2>Benchmark</h2>
+        <p>^GSPC</p>
+      </div>
+    </section>
+
+    <h2 class="section-title">Chart Pack</h2>
+    <section class="chart-grid">
+      <div class="card"><h2>Normalized Returns</h2><img src="charts/normalized_returns.png" alt="normalized_returns"></div><div class="card"><h2>Risk Return</h2><img src="charts/risk_return_scatter.png" alt="risk_return"></div><div class="card"><h2>Valuation Bars</h2><img src="charts/valuation_multiples.png" alt="valuation_bars"></div><div class="card"><h2>Quality Value</h2><img src="charts/quality_value_matrix.png" alt="quality_value"></div><div class="card"><h2>Correlation Heatmap</h2><img src="charts/correlation_heatmap.png" alt="correlation_heatmap"></div><div class="card"><h2>Macro Dashboard</h2><img src="charts/macro_dashboard.png" alt="macro_dashboard"></div><div class="card"><h2>Macro Factor Correlation</h2><img src="charts/macro_factor_correlation.png" alt="macro_factor_correlation"></div><div class="card"><h2>Revenue Trends</h2><img src="charts/revenue_trends.png" alt="revenue_trends"></div><div class="card"><h2>Sec Quarterly Trends</h2><img src="charts/sec_quarterly_trends.png" alt="sec_quarterly_trends"></div><div class="card"><h2>Filing Reactions</h2><img src="charts/filing_reactions.png" alt="filing_reactions"></div><div class="card"><h2>Scorecard Bars</h2><img src="charts/scorecard_bars.png" alt="scorecard_bars"></div><div class="card"><h2>Dcf Upside</h2><img src="charts/dcf_upside.png" alt="dcf_upside"></div><div class="card"><h2>Dcf Sensitivity</h2><img src="charts/dcf_sensitivity.png" alt="dcf_sensitivity"></div>
+    </section>
+
+    <h2 class="section-title">Screening Table</h2>
+    <section class="card">
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>company_name</th>
+      <th>sector</th>
+      <th>industry</th>
+      <th>market_cap</th>
+      <th>current_price</th>
+      <th>total_return_pct</th>
+      <th>annualized_return_pct</th>
+      <th>annualized_vol_pct</th>
+      <th>max_drawdown_pct</th>
+      <th>beta_vs_benchmark</th>
+      <th>trailing_pe</th>
+      <th>forward_pe</th>
+      <th>price_to_book</th>
+      <th>enterprise_to_revenue</th>
+      <th>enterprise_to_ebitda</th>
+      <th>roe_pct</th>
+      <th>operating_margin_pct</th>
+      <th>ebitda_margin_pct</th>
+      <th>revenue_growth_pct</th>
+      <th>revenue_cagr_3y_pct</th>
+      <th>debt_to_equity</th>
+      <th>net_debt_to_ebitda</th>
+      <th>momentum_score</th>
+      <th>quality_score</th>
+      <th>value_score</th>
+      <th>defensiveness_score</th>
+      <th>composite_score</th>
+      <th>sec_company_name</th>
+      <th>cik</th>
+      <th>latest_sec_revenue</th>
+      <th>latest_sec_net_income</th>
+      <th>latest_sec_assets</th>
+      <th>latest_sec_liabilities</th>
+      <th>latest_sec_equity</th>
+      <th>latest_sec_cash</th>
+      <th>latest_sec_shares</th>
+      <th>latest_sec_revenue_filed</th>
+      <th>latest_sec_net_income_filed</th>
+      <th>last_10q_filed</th>
+      <th>last_10k_filed</th>
+      <th>last_8k_filed</th>
+      <th>interesting_filings_last_12m</th>
+      <th>sec_roe_pct</th>
+      <th>sec_liabilities_to_assets_pct</th>
+      <th>sec_net_margin_pct</th>
+      <th>days_since_last_10q</th>
+      <th>days_since_last_10k</th>
+    </tr>
+    <tr>
+      <th>ticker</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>GS</th>
+      <td>Goldman Sachs Group, Inc. (The)</td>
+      <td>Financial Services</td>
+      <td>Capital Markets</td>
+      <td>241586405376</td>
+      <td>805.48</td>
+      <td>244.092703</td>
+      <td>26.927151</td>
+      <td>27.692799</td>
+      <td>-32.840132</td>
+      <td>1.115595</td>
+      <td>15.698303</td>
+      <td>12.383998</td>
+      <td>2.259582</td>
+      <td>0.251</td>
+      <td>None</td>
+      <td>13.861</td>
+      <td>38.319000</td>
+      <td>0.0</td>
+      <td>15.2</td>
+      <td>7.158868</td>
+      <td>596.073</td>
+      <td>NaN</td>
+      <td>100.0</td>
+      <td>70.0</td>
+      <td>63.0</td>
+      <td>72.0</td>
+      <td>76.05</td>
+      <td>GOLDMAN SACHS GROUP INC</td>
+      <td>0000886982</td>
+      <td>NaN</td>
+      <td>1.717600e+10</td>
+      <td>1.809320e+12</td>
+      <td>1.684348e+12</td>
+      <td>1.249720e+11</td>
+      <td>1.642590e+11</td>
+      <td>2.967529e+08</td>
+      <td>NaT</td>
+      <td>2026-02-25</td>
+      <td>2025-10-31</td>
+      <td>2026-02-25</td>
+      <td>2026-03-13</td>
+      <td>11460</td>
+      <td>13.743879</td>
+      <td>93.092875</td>
+      <td>NaN</td>
+      <td>139</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>MS</th>
+      <td>Morgan Stanley</td>
+      <td>Financial Services</td>
+      <td>Capital Markets</td>
+      <td>252358606848</td>
+      <td>158.93</td>
+      <td>174.334229</td>
+      <td>21.497845</td>
+      <td>28.612761</td>
+      <td>-32.377393</td>
+      <td>1.163078</td>
+      <td>15.581372</td>
+      <td>12.916622</td>
+      <td>2.469122</td>
+      <td>2.506</td>
+      <td>None</td>
+      <td>15.614</td>
+      <td>38.625000</td>
+      <td>0.0</td>
+      <td>11.0</td>
+      <td>NaN</td>
+      <td>455.747</td>
+      <td>NaN</td>
+      <td>80.0</td>
+      <td>69.0</td>
+      <td>65.0</td>
+      <td>72.0</td>
+      <td>71.20</td>
+      <td>MORGAN STANLEY</td>
+      <td>0000895421</td>
+      <td>9.743000e+09</td>
+      <td>1.686100e+10</td>
+      <td>1.420270e+12</td>
+      <td>1.307618e+12</td>
+      <td>1.116320e+11</td>
+      <td>1.116950e+11</td>
+      <td>1.587860e+09</td>
+      <td>2015-08-04</td>
+      <td>2026-02-19</td>
+      <td>2025-11-03</td>
+      <td>2026-02-19</td>
+      <td>2026-02-11</td>
+      <td>18453</td>
+      <td>15.104092</td>
+      <td>92.068269</td>
+      <td>173.057580</td>
+      <td>136</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>PJT</th>
+      <td>PJT Partners Inc.</td>
+      <td>Financial Services</td>
+      <td>Capital Markets</td>
+      <td>5184004608</td>
+      <td>130.45</td>
+      <td>92.567004</td>
+      <td>13.477997</td>
+      <td>30.464786</td>
+      <td>-37.796545</td>
+      <td>0.908064</td>
+      <td>19.528442</td>
+      <td>15.183188</td>
+      <td>10.289477</td>
+      <td>2.178</td>
+      <td>None</td>
+      <td>32.422</td>
+      <td>22.951001</td>
+      <td>0.0</td>
+      <td>11.6</td>
+      <td>NaN</td>
+      <td>41.021</td>
+      <td>-0.317021</td>
+      <td>60.0</td>
+      <td>73.0</td>
+      <td>29.0</td>
+      <td>72.0</td>
+      <td>58.60</td>
+      <td>PJT Partners Inc.</td>
+      <td>0001626115</td>
+      <td>1.713671e+09</td>
+      <td>1.801150e+08</td>
+      <td>1.843250e+09</td>
+      <td>8.342070e+08</td>
+      <td>3.082470e+08</td>
+      <td>5.388580e+08</td>
+      <td>2.480054e+07</td>
+      <td>2026-02-26</td>
+      <td>2026-02-26</td>
+      <td>2025-11-06</td>
+      <td>2026-02-26</td>
+      <td>2026-02-03</td>
+      <td>12</td>
+      <td>58.432037</td>
+      <td>45.257399</td>
+      <td>10.510477</td>
+      <td>133</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>JEF</th>
+      <td>Jefferies Financial Group Inc.</td>
+      <td>Financial Services</td>
+      <td>Capital Markets</td>
+      <td>7846787072</td>
+      <td>37.99</td>
+      <td>87.237467</td>
+      <td>12.865109</td>
+      <td>35.848305</td>
+      <td>-54.385477</td>
+      <td>1.377423</td>
+      <td>13.329825</td>
+      <td>8.193380</td>
+      <td>0.741124</td>
+      <td>-1.904</td>
+      <td>None</td>
+      <td>6.579</td>
+      <td>12.239000</td>
+      <td>0.0</td>
+      <td>5.7</td>
+      <td>NaN</td>
+      <td>352.590</td>
+      <td>2.133562</td>
+      <td>40.0</td>
+      <td>29.0</td>
+      <td>85.0</td>
+      <td>42.0</td>
+      <td>47.70</td>
+      <td>Jefferies Financial Group Inc.</td>
+      <td>0000096223</td>
+      <td>1.082368e+10</td>
+      <td>5.771900e+07</td>
+      <td>7.601235e+10</td>
+      <td>6.536974e+10</td>
+      <td>1.057470e+10</td>
+      <td>1.404389e+10</td>
+      <td>2.066913e+08</td>
+      <td>2026-01-28</td>
+      <td>2023-10-06</td>
+      <td>2025-10-09</td>
+      <td>2026-01-28</td>
+      <td>2026-03-09</td>
+      <td>892</td>
+      <td>0.545822</td>
+      <td>85.998842</td>
+      <td>0.533266</td>
+      <td>161</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>LAZ</th>
+      <td>Lazard, Inc.</td>
+      <td>Financial Services</td>
+      <td>Capital Markets</td>
+      <td>3784676096</td>
+      <td>39.89</td>
+      <td>23.330817</td>
+      <td>4.129259</td>
+      <td>36.073314</td>
+      <td>-44.244849</td>
+      <td>1.334613</td>
+      <td>18.382488</td>
+      <td>8.204544</td>
+      <td>4.287864</td>
+      <td>1.544</td>
+      <td>None</td>
+      <td>28.624</td>
+      <td>13.009000</td>
+      <td>0.0</td>
+      <td>10.0</td>
+      <td>NaN</td>
+      <td>241.846</td>
+      <td>1.566109</td>
+      <td>20.0</td>
+      <td>59.0</td>
+      <td>43.0</td>
+      <td>42.0</td>
+      <td>42.70</td>
+      <td>Lazard, Inc.</td>
+      <td>0001311370</td>
+      <td>3.186466e+09</td>
+      <td>2.368310e+08</td>
+      <td>4.940734e+09</td>
+      <td>3.951604e+09</td>
+      <td>8.736550e+08</td>
+      <td>1.469416e+09</td>
+      <td>1.117288e+08</td>
+      <td>2026-02-23</td>
+      <td>2026-02-23</td>
+      <td>2025-10-27</td>
+      <td>2026-02-23</td>
+      <td>2026-02-02</td>
+      <td>20</td>
+      <td>27.108069</td>
+      <td>79.980100</td>
+      <td>7.432403</td>
+      <td>143</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+
+    <h2 class="section-title">Performance Summary</h2>
+    <section class="card">
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>total_return_pct</th>
+      <th>annualized_return_pct</th>
+      <th>annualized_vol_pct</th>
+      <th>sharpe_like</th>
+      <th>max_drawdown_pct</th>
+      <th>beta_vs_benchmark</th>
+      <th>correlation_vs_benchmark</th>
+    </tr>
+    <tr>
+      <th>ticker</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>GS</th>
+      <td>244.092703</td>
+      <td>26.927151</td>
+      <td>27.692799</td>
+      <td>0.841993</td>
+      <td>-32.840132</td>
+      <td>1.115595</td>
+      <td>0.676792</td>
+    </tr>
+    <tr>
+      <th>MS</th>
+      <td>174.334229</td>
+      <td>21.497845</td>
+      <td>28.612761</td>
+      <td>0.625170</td>
+      <td>-32.377393</td>
+      <td>1.163078</td>
+      <td>0.682912</td>
+    </tr>
+    <tr>
+      <th>PJT</th>
+      <td>92.567004</td>
+      <td>13.477997</td>
+      <td>30.464786</td>
+      <td>0.323915</td>
+      <td>-37.796545</td>
+      <td>0.908064</td>
+      <td>0.500765</td>
+    </tr>
+    <tr>
+      <th>JEF</th>
+      <td>87.237467</td>
+      <td>12.865109</td>
+      <td>35.848305</td>
+      <td>0.258174</td>
+      <td>-54.385477</td>
+      <td>1.377423</td>
+      <td>0.645526</td>
+    </tr>
+    <tr>
+      <th>^GSPC</th>
+      <td>79.014507</td>
+      <td>11.891268</td>
+      <td>16.800242</td>
+      <td>0.492926</td>
+      <td>-25.425097</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>LAZ</th>
+      <td>23.330817</td>
+      <td>4.129259</td>
+      <td>36.073314</td>
+      <td>0.014395</td>
+      <td>-44.244849</td>
+      <td>1.334613</td>
+      <td>0.621563</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+
+    <h2 class="section-title">DCF Summary</h2>
+    <section class="card">
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>company_name</th>
+      <th>latest_revenue</th>
+      <th>base_fcf_margin_pct</th>
+      <th>wacc_pct</th>
+      <th>terminal_growth_pct</th>
+      <th>enterprise_value_dcf</th>
+      <th>equity_value_dcf</th>
+      <th>implied_share_price</th>
+      <th>current_price</th>
+      <th>upside_downside_pct</th>
+    </tr>
+    <tr>
+      <th>ticker</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>JEF</th>
+      <td>Jefferies Financial Group Inc.</td>
+      <td>1.082368e+10</td>
+      <td>3.000000</td>
+      <td>7.275783</td>
+      <td>3.5</td>
+      <td>3.704903e+10</td>
+      <td>2.733530e+10</td>
+      <td>132.343121</td>
+      <td>37.99</td>
+      <td>248.363045</td>
+    </tr>
+    <tr>
+      <th>PJT</th>
+      <td>PJT Partners Inc.</td>
+      <td>1.713671e+09</td>
+      <td>28.035545</td>
+      <td>8.676094</td>
+      <td>3.5</td>
+      <td>1.062710e+10</td>
+      <td>1.075204e+10</td>
+      <td>444.770386</td>
+      <td>130.45</td>
+      <td>240.950852</td>
+    </tr>
+    <tr>
+      <th>LAZ</th>
+      <td>Lazard, Inc.</td>
+      <td>3.147974e+09</td>
+      <td>15.482307</td>
+      <td>9.480909</td>
+      <td>3.5</td>
+      <td>9.333970e+09</td>
+      <td>8.630151e+09</td>
+      <td>91.900181</td>
+      <td>39.89</td>
+      <td>130.384010</td>
+    </tr>
+    <tr>
+      <th>GS</th>
+      <td>Goldman Sachs Group, Inc. (The)</td>
+      <td>5.828300e+10</td>
+      <td>3.000000</td>
+      <td>9.000000</td>
+      <td>2.5</td>
+      <td>1.448407e+11</td>
+      <td>-7.705026e+10</td>
+      <td>-259.644493</td>
+      <td>805.48</td>
+      <td>-132.234754</td>
+    </tr>
+    <tr>
+      <th>MS</th>
+      <td>Morgan Stanley</td>
+      <td>6.596600e+10</td>
+      <td>3.000000</td>
+      <td>9.200000</td>
+      <td>2.5</td>
+      <td>1.661464e+11</td>
+      <td>-1.230816e+11</td>
+      <td>-77.514100</td>
+      <td>158.93</td>
+      <td>-148.772479</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+
+    <h2 class="section-title">Macro Snapshot</h2>
+    <section class="card">
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>latest</th>
+      <th>change_30d</th>
+      <th>change_1y</th>
+      <th>display_unit</th>
+    </tr>
+    <tr>
+      <th>series</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3M Treasury Bill</th>
+      <td>3.61</td>
+      <td>1.000</td>
+      <td>-59.000000</td>
+      <td>level %, changes in bps</td>
+    </tr>
+    <tr>
+      <th>Fed Funds Rate</th>
+      <td>3.64</td>
+      <td>0.000</td>
+      <td>-69.000000</td>
+      <td>level %, changes in bps</td>
+    </tr>
+    <tr>
+      <th>High Yield Spread</th>
+      <td>3.22</td>
+      <td>27.000</td>
+      <td>4.000000</td>
+      <td>level %, changes in bps</td>
+    </tr>
+    <tr>
+      <th>US 10Y Treasury Yield</th>
+      <td>4.20</td>
+      <td>16.000</td>
+      <td>-11.000000</td>
+      <td>level %, changes in bps</td>
+    </tr>
+    <tr>
+      <th>US CPI Index</th>
+      <td>327.46</td>
+      <td>0.872</td>
+      <td>2.434004</td>
+      <td>index / YoY %</td>
+    </tr>
+    <tr>
+      <th>US Unemployment Rate</th>
+      <td>4.40</td>
+      <td>10.000</td>
+      <td>20.000000</td>
+      <td>level %, changes in bps</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+
+    <h2 class="section-title">SEC Snapshot</h2>
+    <section class="card">
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sec_company_name</th>
+      <th>cik</th>
+      <th>latest_sec_revenue</th>
+      <th>latest_sec_net_income</th>
+      <th>latest_sec_assets</th>
+      <th>latest_sec_liabilities</th>
+      <th>latest_sec_equity</th>
+      <th>latest_sec_cash</th>
+      <th>latest_sec_shares</th>
+      <th>latest_sec_revenue_filed</th>
+      <th>latest_sec_net_income_filed</th>
+      <th>last_10q_filed</th>
+      <th>last_10k_filed</th>
+      <th>last_8k_filed</th>
+      <th>interesting_filings_last_12m</th>
+      <th>sec_roe_pct</th>
+      <th>sec_liabilities_to_assets_pct</th>
+    </tr>
+    <tr>
+      <th>ticker</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>GS</th>
+      <td>GOLDMAN SACHS GROUP INC</td>
+      <td>0000886982</td>
+      <td>NaN</td>
+      <td>1.717600e+10</td>
+      <td>1.809320e+12</td>
+      <td>1.684348e+12</td>
+      <td>1.249720e+11</td>
+      <td>1.642590e+11</td>
+      <td>2.967529e+08</td>
+      <td>NaT</td>
+      <td>2026-02-25</td>
+      <td>2025-10-31</td>
+      <td>2026-02-25</td>
+      <td>2026-03-13</td>
+      <td>11460</td>
+      <td>13.743879</td>
+      <td>93.092875</td>
+    </tr>
+    <tr>
+      <th>JEF</th>
+      <td>Jefferies Financial Group Inc.</td>
+      <td>0000096223</td>
+      <td>1.082368e+10</td>
+      <td>5.771900e+07</td>
+      <td>7.601235e+10</td>
+      <td>6.536974e+10</td>
+      <td>1.057470e+10</td>
+      <td>1.404389e+10</td>
+      <td>2.066913e+08</td>
+      <td>2026-01-28</td>
+      <td>2023-10-06</td>
+      <td>2025-10-09</td>
+      <td>2026-01-28</td>
+      <td>2026-03-09</td>
+      <td>892</td>
+      <td>0.545822</td>
+      <td>85.998842</td>
+    </tr>
+    <tr>
+      <th>LAZ</th>
+      <td>Lazard, Inc.</td>
+      <td>0001311370</td>
+      <td>3.186466e+09</td>
+      <td>2.368310e+08</td>
+      <td>4.940734e+09</td>
+      <td>3.951604e+09</td>
+      <td>8.736550e+08</td>
+      <td>1.469416e+09</td>
+      <td>1.117288e+08</td>
+      <td>2026-02-23</td>
+      <td>2026-02-23</td>
+      <td>2025-10-27</td>
+      <td>2026-02-23</td>
+      <td>2026-02-02</td>
+      <td>20</td>
+      <td>27.108069</td>
+      <td>79.980100</td>
+    </tr>
+    <tr>
+      <th>MS</th>
+      <td>MORGAN STANLEY</td>
+      <td>0000895421</td>
+      <td>9.743000e+09</td>
+      <td>1.686100e+10</td>
+      <td>1.420270e+12</td>
+      <td>1.307618e+12</td>
+      <td>1.116320e+11</td>
+      <td>1.116950e+11</td>
+      <td>1.587860e+09</td>
+      <td>2015-08-04</td>
+      <td>2026-02-19</td>
+      <td>2025-11-03</td>
+      <td>2026-02-19</td>
+      <td>2026-02-11</td>
+      <td>18453</td>
+      <td>15.104092</td>
+      <td>92.068269</td>
+    </tr>
+    <tr>
+      <th>PJT</th>
+      <td>PJT Partners Inc.</td>
+      <td>0001626115</td>
+      <td>1.713671e+09</td>
+      <td>1.801150e+08</td>
+      <td>1.843250e+09</td>
+      <td>8.342070e+08</td>
+      <td>3.082470e+08</td>
+      <td>5.388580e+08</td>
+      <td>2.480054e+07</td>
+      <td>2026-02-26</td>
+      <td>2026-02-26</td>
+      <td>2025-11-06</td>
+      <td>2026-02-26</td>
+      <td>2026-02-03</td>
+      <td>12</td>
+      <td>58.432037</td>
+      <td>45.257399</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+
+    <h2 class="section-title">Filing Event Summary</h2>
+    <section class="card">
+      <table class="dataframe data-table">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>event_count</th>
+      <th>avg_excess_day0_pct</th>
+      <th>avg_abs_excess_day0_pct</th>
+      <th>avg_excess_3d_pct</th>
+      <th>avg_volume_ratio</th>
+    </tr>
+    <tr>
+      <th>form</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>8-K</th>
+      <td>121</td>
+      <td>-0.064404</td>
+      <td>2.638317</td>
+      <td>-0.639340</td>
+      <td>1.671296</td>
+    </tr>
+    <tr>
+      <th>S-3ASR</th>
+      <td>2</td>
+      <td>0.214986</td>
+      <td>2.341573</td>
+      <td>1.026633</td>
+      <td>1.302184</td>
+    </tr>
+    <tr>
+      <th>DEF 14A</th>
+      <td>12</td>
+      <td>-0.537942</td>
+      <td>1.266310</td>
+      <td>-0.990618</td>
+      <td>1.011038</td>
+    </tr>
+    <tr>
+      <th>10-Q</th>
+      <td>39</td>
+      <td>-0.360778</td>
+      <td>1.204707</td>
+      <td>0.278761</td>
+      <td>1.062362</td>
+    </tr>
+    <tr>
+      <th>10-K</th>
+      <td>15</td>
+      <td>-0.225561</td>
+      <td>0.912311</td>
+      <td>-1.579471</td>
+      <td>0.982420</td>
+    </tr>
+    <tr>
+      <th>S-3</th>
+      <td>1</td>
+      <td>0.427878</td>
+      <td>0.427878</td>
+      <td>-0.775378</td>
+      <td>0.952062</td>
+    </tr>
+    <tr>
+      <th>8-K/A</th>
+      <td>1</td>
+      <td>-0.412556</td>
+      <td>0.412556</td>
+      <td>1.022190</td>
+      <td>0.820152</td>
+    </tr>
+  </tbody>
+</table>
+    </section>
+
+    <h2 class="section-title">Interview Framing</h2>
+    <section class="card">
+      <p>Use this report to explain peer selection, valuation tradeoffs, macro sensitivity, and the judgment embedded in a DCF model. A strong interview walkthrough starts with business context, then links relative valuation to intrinsic value and market conditions.</p>
+      <p>The name to highlight from a value-creation perspective is GS, based on the current output set.</p>
+    </section>
+  </div>
+</body>
+</html>
