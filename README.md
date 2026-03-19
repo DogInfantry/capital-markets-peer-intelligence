@@ -1,6 +1,6 @@
 # Investment Banking Recruiting Portfolio
 
-This project is a recruiter-friendly Python showcase for an MBA candidate targeting investment banking, capital markets, corporate finance, or strategy roles. It combines free market data, free macro data, valuation-style benchmarking, and clean visual storytelling in a way that looks like real analytical work instead of a classroom exercise.
+This project is a recruiter-friendly Python showcase for candidates targeting investment banking, capital markets, corporate finance, or strategy roles. It combines free market data, free macro data, valuation-style benchmarking, and clean visual storytelling in a way that looks like real analytical work instead of a classroom exercise.
 
 ## What this project demonstrates
 
