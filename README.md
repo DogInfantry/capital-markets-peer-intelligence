@@ -45,7 +45,7 @@ For GitHub, the cleanest setup is:
 - Generated working files in `outputs/` kept out of version control
 - A curated `sample_outputs/` folder committed to GitHub for recruiters to browse
 
-Recommended recruiter-facing files to keep in GitHub:
+Recommended files to keep in GitHub:
 
 - `sample_outputs/dashboard_report.html`
 - `sample_outputs/executive_summary.md`
@@ -107,7 +107,7 @@ py -m pip install -r requirements.txt
 py run_analysis.py
 ```
 
-## Why hiring managers care
+## Why bankers care
 
 This repo shows more than coding. It shows:
 
